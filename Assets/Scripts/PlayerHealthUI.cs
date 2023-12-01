@@ -26,9 +26,12 @@ public class PlayerHealthUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateValue();
-        UpdateHeartColor();
-        UpdateHeartCycle();
+        if (health != null)
+        {
+            UpdateValue();
+            UpdateHeartColor();
+            UpdateHeartCycle();
+        }
     }
 
     void UpdateValue()
