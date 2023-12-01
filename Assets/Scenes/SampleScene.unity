@@ -382,10 +382,10 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 1.0592737, y: 0.8461463, z: 0.70987976, w: 1}
+      - m_Value: {x: 1.2596959, y: 1.0062432, z: 0.8441941, w: 1}
         m_Name: Color_1
         m_Overridden: 1
-      - m_Value: {x: 0.7444896, y: 0.84806377, z: 1.0592738, w: 1}
+      - m_Value: {x: 0.8853523, y: 1.0085235, z: 1.2596959, w: 1}
         m_Name: Color_2
         m_Overridden: 1
     m_Uint:
@@ -769,6 +769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f4e457364f6e74098fae6b9db3f375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bpmText: {fileID: 1086584669}
   heartIcon: {fileID: 1804502768}
   normalScale: {x: 0.125, y: 0.125, z: 0.125}
   maxScale: {x: 0.15625, y: 0.15625, z: 0.15625}
@@ -1039,7 +1040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: XXX
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}

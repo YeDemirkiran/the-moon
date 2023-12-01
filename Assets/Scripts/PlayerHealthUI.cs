@@ -1,9 +1,13 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour
 {
+    [Header("Value")]
+    [SerializeField] TMP_Text bpmText;
+
     [Header("Heart Animation")]
     [SerializeField] Image heartIcon;
     [SerializeField] Vector3 normalScale, maxScale;
@@ -22,8 +26,14 @@ public class PlayerHealthUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateValue();
         UpdateHeartColor();
         UpdateHeartCycle();
+    }
+
+    void UpdateValue()
+    {
+        bpmText.text = health.currentBPM.ToString("0");
     }
 
     void UpdateHeartColor()
