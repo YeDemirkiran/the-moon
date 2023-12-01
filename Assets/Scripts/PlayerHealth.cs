@@ -1,20 +1,26 @@
 using System.Collections;
 using UnityEngine;
 
+public enum Cycle { First, Second }
+
 public class PlayerHealth : MonoBehaviour
 {
-    public float minBPM, maxBPM;
-    public float dangerBPM;
+    public static PlayerHealth Instance;
 
-    float currentBPM;
-
+    [Header("Heartbeat")]
+    public float minBPM;
+    public float maxBPM, dangerBPM;    
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip firstBeat, secondBeat;
 
-    // Start is called before the first frame update
+    public float currentBPM { get; private set; }
+    public Cycle cycle { get; private set; }
+
     void Awake()
     {
         currentBPM = minBPM;
+
+        Instance = this;
     }
 
     IEnumerator Start()
@@ -35,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
                 audioSource.PlayOneShot(firstBeat);
                 canSystole = true;
 
-                Debug.Log("1");
+                cycle = Cycle.First;
             }
 
             if (canSystole)
@@ -47,17 +53,12 @@ public class PlayerHealth : MonoBehaviour
                     canSystole = false;
                     secondBeatTimer = 0f;
                     audioSource.PlayOneShot(secondBeat);
+
+                    cycle = Cycle.Second;
                 }
             }
             
-
             yield return null;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
