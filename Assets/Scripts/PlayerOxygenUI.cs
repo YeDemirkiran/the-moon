@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class PlayerOxygenUI : MonoBehaviour
 
     [SerializeField] Slider slider;
     [SerializeField] Image overlay;
+    [SerializeField] TMP_Text valueText;
     [SerializeField] float overlayAppearDuration = 1f;
 
     // Start is called before the first frame update
@@ -22,7 +24,11 @@ public class PlayerOxygenUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        slider.value = oxygen.currentOxygen / oxygen.maxOxygen;
+        float value = oxygen.currentOxygen / oxygen.maxOxygen;
+        slider.value = value;
+
+        float percent = value * 100f;
+        valueText.text = $"%{percent.ToString("0")}";
     }
 
     public void Fade(float transparency, float duration)
