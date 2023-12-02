@@ -952,6 +952,11 @@ MonoBehaviour:
   maxScale: {x: 0.15625, y: 0.15625, z: 0.15625}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   dangerColor: {r: 0.7019608, g: 0.28235295, b: 0.32941177, a: 1}
+  volume: {fileID: 832575518}
+  restIntensity: 0.175
+  maxIntensity: 0.8
+  vignetteRestColor: {r: 0, g: 0, b: 0, a: 1}
+  vignetteDangerColor: {r: 0.7924528, g: 0, b: 0, a: 1}
 --- !u!1 &694028468 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 38c40dba0e1954447a7109ddc22b65c1,
@@ -1305,7 +1310,6 @@ GameObject:
   m_Component:
   - component: {fileID: 991887352}
   - component: {fileID: 991887355}
-  - component: {fileID: 991887354}
   - component: {fileID: 991887353}
   m_Layer: 0
   m_Name: UICamera
@@ -1373,14 +1377,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &991887354
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 991887351}
-  m_Enabled: 1
 --- !u!20 &991887355
 Camera:
   m_ObjectHideFlags: 0

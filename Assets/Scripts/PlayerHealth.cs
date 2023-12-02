@@ -30,6 +30,8 @@ public class PlayerHealth : MonoBehaviour
 
         while (true)
         {
+            currentBPM = Mathf.Clamp(currentBPM, minBPM, maxBPM);
+
             float beatInterval = 60f / currentBPM;
             float systoleInterval = beatInterval * 0.3f;
 
