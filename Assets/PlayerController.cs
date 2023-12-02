@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] new Transform camera;
     [SerializeField] ParentFollower flashlight;
+    public AudioSource audioSource;
+    public AudioClip scaredClip;
     FirstPersonController fpsController;
 
     Coroutine body, cam;

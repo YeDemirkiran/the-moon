@@ -1,8 +1,11 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Groundbug : MonoBehaviour
 {
     [SerializeField] Animator animator;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip jumpscareClip;
 
     bool canJump = false, jumped = false;
 
@@ -14,7 +17,7 @@ public class Groundbug : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public async void Update()
     {
         if (!canJump)
         {
@@ -29,12 +32,17 @@ public class Groundbug : MonoBehaviour
             {
                 if (!player.rotationStarted)
                 {
-                    player.RotateTowards(transform.position, 0.25f);
+                    player.RotateTowards(transform.position, 0.5f);
                 }
                 else if (player.rotationComplete)
                 {
+                    await Task.Delay(250);
+
                     jumped = true;
                     animator.SetTrigger("jumpscare");
+
+                    audioSource.PlayOneShot(jumpscareClip);
+                    player.audioSource.PlayOneShot(player.scaredClip);
                 } 
             }
             else
