@@ -38,7 +38,7 @@ public class PlayerOxygen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.Q))
         {
             if (currentOxygen >= 0f)
             {
@@ -87,7 +87,7 @@ public class PlayerOxygen : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.Q))
         {
             if (oxygenInUse)
             {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum Axis { x, y, z, All}
 
-public class Flashlight : MonoBehaviour
+public class ParentFollower : MonoBehaviour
 {
     [SerializeField] Transform parent;
     [SerializeField] Axis axis;
