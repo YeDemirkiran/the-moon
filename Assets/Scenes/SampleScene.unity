@@ -4933,6 +4933,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1191089327}
+    - targetCorrespondingSourceObject: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1191089341}
     - targetCorrespondingSourceObject: {fileID: 4459864851310106424, guid: 6bacecc4f3df9584198879c73a6b6c36,
         type: 3}
       insertIndex: -1
@@ -5083,6 +5087,20 @@ MonoBehaviour:
   audioSource: {fileID: 1970766509}
   oxygenDepletedAudio: {fileID: 8300000, guid: 72db2f1bb85af17469870080f44db9e5, type: 3}
   audioFadeDuration: 0.25
+--- !u!114 &1191089341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191089326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ec5b86300547541b58d1cf65889ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 969721341}
+  flashlight: {fileID: 1117709105}
 --- !u!1001 &1290791184
 PrefabInstance:
   m_ObjectHideFlags: 0

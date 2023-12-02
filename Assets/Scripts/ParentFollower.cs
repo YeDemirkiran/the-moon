@@ -7,7 +7,7 @@ public class ParentFollower : MonoBehaviour
     [SerializeField] Transform parent;
     [SerializeField] Axis axis;
     [SerializeField] Vector3 offset;
-    [SerializeField] float rotationSpeed;
+    public float rotationSpeed;
 
     // Update is called once per frame
     void Update()

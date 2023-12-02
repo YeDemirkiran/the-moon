@@ -4,7 +4,14 @@ public class Groundbug : MonoBehaviour
 {
     [SerializeField] Animator animator;
 
-    bool canJump = false, jumped = false;    
+    bool canJump = false, jumped = false;
+
+    PlayerController player;
+
+    private void Start()
+    {
+        player = PlayerController.instance;
+    }
 
     // Update is called once per frame
     void Update()
@@ -20,8 +27,15 @@ public class Groundbug : MonoBehaviour
         {
             if (!jumped)
             {
-                jumped = true;
-                animator.SetTrigger("jumpscare");
+                if (!player.rotationStarted)
+                {
+                    player.RotateTowards(transform.position, 0.25f);
+                }
+                else if (player.rotationComplete)
+                {
+                    jumped = true;
+                    animator.SetTrigger("jumpscare");
+                } 
             }
             else
             {
