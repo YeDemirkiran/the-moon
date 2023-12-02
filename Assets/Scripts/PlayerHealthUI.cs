@@ -134,7 +134,7 @@ public class PlayerHealthUI : MonoBehaviour
 
             if (bpm > 0f)
             {
-                vignette.color.value = Color.Lerp(startingColor, targetColor * dangerCoefficient, lerp);
+                vignette.color.value = Color.Lerp(startingColor, targetColor, lerp);
                 vignette.intensity.value = Mathf.Lerp(startingIntensity, targetIntensity * dangerCoefficient, lerp);
             }
 

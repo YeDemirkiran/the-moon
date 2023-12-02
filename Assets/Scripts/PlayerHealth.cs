@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip firstBeat, secondBeat;
 
-    public float currentBPM { get; private set; }
+    public float currentBPM { get; set; }
     public Cycle cycle { get; private set; }
 
     void Awake()
@@ -30,6 +30,8 @@ public class PlayerHealth : MonoBehaviour
 
         while (true)
         {
+            currentBPM += 2 * Time.deltaTime;
+
             currentBPM = Mathf.Clamp(currentBPM, minBPM, maxBPM);
 
             float beatInterval = 60f / currentBPM;
