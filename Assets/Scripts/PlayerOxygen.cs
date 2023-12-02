@@ -1,10 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerOxygen : MonoBehaviour
 {
     public float maxOxygen;
     public float currentOxygen { get; private set; }
+
+    public UnityAction oxygenUseStart { get; set; }
+    public UnityAction oxygenUseEnd { get; set; }
+
     [SerializeField] float usePercentagePerSecond = 5f;
     [SerializeField] float bpmDecreasePerPercent = 1.2f;
 
@@ -55,7 +60,12 @@ public class PlayerOxygen : MonoBehaviour
                     audioSource.Play();
                 }
 
-                oxygenInUse = true;
+                if (!oxygenInUse)
+                {
+                    oxygenInUse = true;
+
+                    oxygenUseStart.Invoke();
+                }
             }
             else
             {
@@ -65,6 +75,8 @@ public class PlayerOxygen : MonoBehaviour
                     {
                         audioCoroutine = StartCoroutine(AudioFade());
                         oxygenInUse = false;
+
+                        oxygenUseEnd.Invoke();
                     }
                 }
                 else if (!audioSource.isPlaying)
@@ -77,10 +89,17 @@ public class PlayerOxygen : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.E))
         {
-            if (audioCoroutine == null)
+            if (oxygenInUse)
             {
-                audioCoroutine = StartCoroutine(AudioFade());
-            }
+                oxygenInUse = false;
+
+                if (audioCoroutine == null)
+                {
+                    audioCoroutine = StartCoroutine(AudioFade());
+                }
+
+                oxygenUseEnd.Invoke();
+            } 
         }
     }
 
