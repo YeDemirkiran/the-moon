@@ -30,12 +30,18 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        RevertBug();
+    }
+
+    void RevertBug()
+    {
         if (Input.GetKeyDown(KeyCode.Mouse0) && Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, Mathf.Infinity, bugLayerMask))
         {
-            if (hit.collider.transform.parent.TryGetComponent(out Groundbug bug))
+            Bug bug = hit.collider.transform.GetComponentInParent<Bug>();
+            if (bug != null)
             {
                 bug.animator.SetFloat("speed", -2f);
-            }      
+            }
         }
     }
 

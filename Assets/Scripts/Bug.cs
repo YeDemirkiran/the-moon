@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class Groundbug : MonoBehaviour
+public class Bug : MonoBehaviour
 {
+    public static bool currentlyJumpscaring = false;
+
     public Animator animator;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip jumpscareClip;
@@ -28,27 +30,32 @@ public class Groundbug : MonoBehaviour
         }
         else
         {
-            if (!jumped)
+            if (!jumped && !currentlyJumpscaring)
             {
+                currentlyJumpscaring = true;
+
+                Debug.Log("Creature name: " + gameObject.name);
                 Debug.Log("Jumped:");
                 Debug.Log(jumped);
 
-                if (!player.rotationStarted)
-                {
-                    player.RotateTowards(transform.position, 0.5f);
-                }
-                else if (player.rotationComplete)
-                {
-                    jumped = true;
+                StartCoroutine(Jumpscare());
 
-                    StartCoroutine(Jumpscare());
-                }
+                
             }
         }
     }
 
     IEnumerator Jumpscare()
     {
+        while (player.rotationStarted) yield return null;
+
+        player.RotateTowards(transform.position, 0.5f);
+
+        while (!player.rotationComplete) yield return null;
+
+        player.rotationStarted = false;
+        jumped = true;
+
         yield return new WaitForSeconds(0.25f);
 
         animator.SetTrigger("jumpscare");
@@ -71,9 +78,10 @@ public class Groundbug : MonoBehaviour
         player.fpsController.yaw = preYaw;
         player.fpsController.canRotate = true;
 
-        canDestroy = true;
-
         Debug.Log("Jumpscare Done");
         Destroy(gameObject);
+
+        currentlyJumpscaring = false;
+        
     }
 }

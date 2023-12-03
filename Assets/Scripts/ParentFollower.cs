@@ -12,27 +12,30 @@ public class ParentFollower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = parent.position + offset;
-
-        Quaternion rotation;
-        rotation = Quaternion.Slerp(transform.rotation, parent.rotation, Time.deltaTime * rotationSpeed);
-
-        switch (axis)
+        if (parent != null)
         {
-            case Axis.x:
-                rotation.y = transform.rotation.y;
-                rotation.z = transform.rotation.z;
-                break;
-            case Axis.y:
-                rotation.x = transform.rotation.x;
-                rotation.z = transform.rotation.z;
-                break;
-            case Axis.z:
-                rotation.x = transform.rotation.x;
-                rotation.y = transform.rotation.y;
-                break;
-        }
+            transform.position = parent.position + offset;
 
-        transform.rotation = rotation;
+            Quaternion rotation;
+            rotation = Quaternion.Slerp(transform.rotation, parent.rotation, Time.deltaTime * rotationSpeed);
+
+            switch (axis)
+            {
+                case Axis.x:
+                    rotation.y = transform.rotation.y;
+                    rotation.z = transform.rotation.z;
+                    break;
+                case Axis.y:
+                    rotation.x = transform.rotation.x;
+                    rotation.z = transform.rotation.z;
+                    break;
+                case Axis.z:
+                    rotation.x = transform.rotation.x;
+                    rotation.y = transform.rotation.y;
+                    break;
+            }
+
+            transform.rotation = rotation;
+        }
     }
 }
