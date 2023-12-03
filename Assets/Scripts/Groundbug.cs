@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Groundbug : MonoBehaviour
 {
-    [SerializeField] Animator animator;
+    public Animator animator;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip jumpscareClip;
 
@@ -41,9 +41,28 @@ public class Groundbug : MonoBehaviour
                     jumped = true;
                     animator.SetTrigger("jumpscare");
 
-                    audioSource.PlayOneShot(jumpscareClip);
-                    player.audioSource.PlayOneShot(player.scaredClip);
-                } 
+                    if (!audioSource.isPlaying)
+                    {
+                        audioSource.PlayOneShot(jumpscareClip);
+                    }
+
+                    if (!player.audioSource.isPlaying)
+                    {
+                        player.audioSource.PlayOneShot(player.scaredClip, 2f);
+                    }
+
+                    player.fpsController.canRotate = false;
+                    float preYaw = player.fpsController.yaw;
+
+                    for (float timer = 0f; timer < 1f; timer += Time.deltaTime)
+                    { 
+                        player.fpsController.yaw += 1000f * Time.deltaTime;
+                        await Task.Yield();
+                    }
+
+                    player.fpsController.yaw = preYaw;
+                    player.fpsController.canRotate = true;
+                }
             }
             else
             {

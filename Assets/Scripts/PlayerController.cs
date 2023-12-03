@@ -7,9 +7,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] new Transform camera;
     [SerializeField] ParentFollower flashlight;
+    [SerializeField] LayerMask bugLayerMask;
     public AudioSource audioSource;
     public AudioClip scaredClip;
-    FirstPersonController fpsController;
+    public FirstPersonController fpsController {  get; private set; }
 
     Coroutine body, cam;
 
@@ -25,6 +26,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         fpsController = GetComponent<FirstPersonController>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, Mathf.Infinity, bugLayerMask))
+        {
+            if (hit.collider.transform.parent.TryGetComponent(out Groundbug bug))
+            {
+                bug.animator.SetFloat("speed", -2f);
+            }      
+        }
     }
 
     public void RotateTowards(Vector3 point, float duration)

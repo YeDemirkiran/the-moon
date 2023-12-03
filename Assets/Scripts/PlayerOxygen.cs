@@ -73,7 +73,7 @@ public class PlayerOxygen : MonoBehaviour
                 {
                     if (audioCoroutine == null)
                     {
-                        audioCoroutine = StartCoroutine(AudioFade());
+                        audioCoroutine = SoundManager.FadeAudio(this, audioSource, audioFadeDuration);
                         oxygenInUse = false;
 
                         oxygenUseEnd.Invoke();
@@ -95,29 +95,11 @@ public class PlayerOxygen : MonoBehaviour
 
                 if (audioCoroutine == null)
                 {
-                    audioCoroutine = StartCoroutine(AudioFade());
+                    audioCoroutine = SoundManager.FadeAudio(this, audioSource, audioFadeDuration);
                 }
 
                 oxygenUseEnd.Invoke();
             } 
         }
-    }
-
-    IEnumerator AudioFade()
-    {
-        float lerp = 0f;
-
-        float startingVolume = audioSource.volume;
-
-        while (lerp <= 1f) 
-        {
-            lerp += Time.deltaTime / audioFadeDuration;
-
-            audioSource.volume = Mathf.Lerp(startingVolume, 0f, lerp);
-
-            yield return null;   
-        }
-
-        audioSource.Stop();
     }
 }
