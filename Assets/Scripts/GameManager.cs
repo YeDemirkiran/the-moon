@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum GameState { Paused, Running }
+public enum GameState { Paused, Running, Intro }
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     public GameState state {  get; private set; }
-    public static bool isPaused { get { return instance.state == GameState.Paused; } }
+    public static bool isPaused { get { return instance.state == GameState.Paused || instance.state == GameState.Intro; } }
     GameState previousState;
 
     public UnityAction eventsAtPause;
@@ -18,13 +18,22 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        state = GameState.Running;
+
+        state = GameState.Intro;
+        OnIntro();
+        eventsAtPause.Invoke();
+
         previousState = GameState.Paused;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (state == GameState.Intro)
+        {
+            return;
+        }
+
         PauseCheck();
         SwitchMachine();
     }
@@ -87,6 +96,12 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = active ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = active;
+    }
+
+    void OnIntro()
+    {
+        Time.timeScale = 0.0001f;
+        ChangeCursorState(false);
     }
 
     void OnPause()
