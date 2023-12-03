@@ -82,13 +82,21 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
+    void ChangeCursorState(bool active)
+    {
+        Cursor.lockState = active ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = active;
+    }
+
     void OnPause()
     { 
         Time.timeScale = 0.0001f;
+        ChangeCursorState(true);
     }
 
     void OnResume()
     {
         Time.timeScale = 1f;
+        ChangeCursorState(false);
     }
 }
