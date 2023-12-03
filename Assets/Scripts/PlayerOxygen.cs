@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -38,6 +37,8 @@ public class PlayerOxygen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.isPaused) return;
+
         if (Input.GetKey(KeyCode.Q))
         {
             if (currentOxygen >= 0f)

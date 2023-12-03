@@ -24,6 +24,8 @@ public class PlayerOxygenUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.isPaused) return;
+
         float value = oxygen.currentOxygen / oxygen.maxOxygen;
         slider.value = value;
 

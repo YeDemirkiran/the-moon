@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.isPaused) return;
+
         RevertBug();
     }
 

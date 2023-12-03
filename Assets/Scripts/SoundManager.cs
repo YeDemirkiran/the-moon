@@ -4,10 +4,23 @@ using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] AudioMixer audioMixer;
+
+    float audioMixerOriginalVolume, audioMixerOriginalPitch;
+
+    IEnumerator Start()
     {
-        
+        audioMixer.GetFloat("sfxVolume", out audioMixerOriginalVolume);
+        audioMixer.GetFloat("sfxPitch", out audioMixerOriginalPitch);
+
+        while (GameManager.instance == null) yield return null;
+        GameManager gameManager = GameManager.instance;
+
+        gameManager.eventsAtPause += () => audioMixer.SetFloat("sfxVolume", -80f);
+        gameManager.eventsAtPause += () => audioMixer.SetFloat("sfxPitch", 1f);
+
+        gameManager.eventsAtResume += () => audioMixer.SetFloat("sfxVolume", audioMixerOriginalVolume);
+        gameManager.eventsAtResume += () => audioMixer.SetFloat("sfxPitch", audioMixerOriginalPitch);
     }
 
     public static AudioSource CreateFollowing3DAudio(Transform caller, AudioClip clipToPlay, bool destroyWhenFinished = true, AudioMixerGroup group = null)

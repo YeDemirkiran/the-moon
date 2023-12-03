@@ -42,6 +42,8 @@ public class PlayerHealthUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.isPaused) return;
+
         if (canUpdate)
         {
             UpdateValue();

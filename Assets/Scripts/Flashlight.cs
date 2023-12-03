@@ -16,6 +16,8 @@ public class Flashlight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.isPaused) return;
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             open = !open;

@@ -203,6 +203,8 @@ public class FirstPersonController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.isPaused) return;
+
         #region Camera
 
         // Control camera movement

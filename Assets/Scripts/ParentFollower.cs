@@ -12,6 +12,8 @@ public class ParentFollower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.isPaused) return;
+
         if (parent != null)
         {
             transform.position = parent.position + offset;

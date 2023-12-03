@@ -22,6 +22,8 @@ public class Bug : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        if (GameManager.isPaused) return;
+
         if (!canJump)
         {
             if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
@@ -39,9 +41,7 @@ public class Bug : MonoBehaviour
                 Debug.Log("Jumped:");
                 Debug.Log(jumped);
 
-                StartCoroutine(Jumpscare());
-
-                
+                StartCoroutine(Jumpscare()); 
             }
         }
     }

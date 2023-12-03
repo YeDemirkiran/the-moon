@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public GameState state {  get; private set; }
+    public static bool isPaused { get { return instance.state == GameState.Paused; } }
     GameState previousState;
 
     public UnityAction eventsAtPause;
