@@ -21,21 +21,15 @@ public class PlayerBreath : MonoBehaviour
     {
         if (previousBPM != PlayerHealth.Instance.currentBPM)
         {
-            Debug.Log("Previous BPM != current BPM");
-
             previousBPM = PlayerHealth.Instance.currentBPM;
 
             if (previousBPMRange.x >= previousBPM || previousBPMRange.y <= previousBPM)
             {
-                Debug.Log("Previous BPM range is outdated");
-
                 foreach (BreathSFX sfx in breathSounds)
                 {
                     if (previousBPM >= sfx.BPMrange.x && previousBPM <= sfx.BPMrange.y)
                     {
-
                         previousBPMRange = sfx.BPMrange;
-                        Debug.Log("New BPM range: " + previousBPMRange);
 
                         float volume = audioSource.volume;
                         audioSource.loop = false;
