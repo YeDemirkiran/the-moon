@@ -2088,6 +2088,7 @@ MonoBehaviour:
   animator: {fileID: 839432227}
   audioSource: {fileID: 839432230}
   jumpscareClip: {fileID: 8300000, guid: 89bd112b72c6bf1419270511708e01cb, type: 3}
+  bpmIncreaseOnJumpscare: 20
 --- !u!82 &839432230
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4978,6 +4979,7 @@ MonoBehaviour:
   animator: {fileID: 1063425544}
   audioSource: {fileID: 1063425542}
   jumpscareClip: {fileID: 8300000, guid: 89bd112b72c6bf1419270511708e01cb, type: 3}
+  bpmIncreaseOnJumpscare: 20
 --- !u!95 &1063425544
 Animator:
   serializedVersion: 5
@@ -5791,6 +5793,39 @@ MonoBehaviour:
   audioSource: {fileID: 1191089327}
   firstBeat: {fileID: 8300000, guid: 957ae8ceddf00d142942c924f286b24e, type: 3}
   secondBeat: {fileID: 8300000, guid: ceb7425944a346d4daa6557f3194ea8b, type: 3}
+  bpmChangeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.1790013
+      value: 0.73492754
+      inSlope: 1.4216685
+      outSlope: 1.4216685
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.4114071
+      outWeight: 0.059068494
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1191089334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36,

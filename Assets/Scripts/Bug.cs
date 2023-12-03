@@ -8,6 +8,7 @@ public class Bug : MonoBehaviour
     public Animator animator;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip jumpscareClip;
+    [SerializeField] float bpmIncreaseOnJumpscare = 20f;
 
     bool canJump = false, jumped = false;
 
@@ -82,6 +83,7 @@ public class Bug : MonoBehaviour
         Destroy(gameObject);
 
         currentlyJumpscaring = false;
-        
+
+        PlayerHealth.Instance.SetBPM(PlayerHealth.Instance.currentBPM + bpmIncreaseOnJumpscare, 4f);
     }
 }

@@ -12,9 +12,12 @@ public class PlayerHealth : MonoBehaviour
     public float maxBPM, dangerBPM;    
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip firstBeat, secondBeat;
+    [SerializeField] AnimationCurve bpmChangeCurve;
 
     public float currentBPM { get; set; }
     public Cycle cycle { get; private set; }
+
+    Coroutine bpmRoutine = null;
 
     void Awake()
     {
@@ -30,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
         while (true)
         {
-            currentBPM += 2 * Time.deltaTime;
+            //currentBPM += 2 * Time.deltaTime;
 
             currentBPM = Mathf.Clamp(currentBPM, minBPM, maxBPM);
 
@@ -62,6 +65,33 @@ public class PlayerHealth : MonoBehaviour
                 }
             }
             
+            yield return null;
+        }
+    }
+
+    public void SetBPM(float bpm, float increasePerSecond)
+    {
+        if (bpmRoutine != null)
+        {
+            StopCoroutine(bpmRoutine);
+        }
+
+        bpmRoutine = StartCoroutine(NewBPM(bpm, increasePerSecond));
+    }
+
+    IEnumerator NewBPM(float newBPM, float increasePerSecond)
+    {
+        float lerp = 0f;
+
+        float startinBPM = currentBPM;
+
+        float completionTime = (newBPM - startinBPM) / increasePerSecond;
+
+        while (lerp < 1.1f)
+        {
+            lerp += Time.deltaTime / completionTime;
+            currentBPM = Mathf.Lerp(startinBPM, newBPM, bpmChangeCurve.Evaluate(lerp));
+
             yield return null;
         }
     }
