@@ -65,6 +65,8 @@ public class PlayerOxygen : MonoBehaviour
                 {
                     oxygenInUse = true;
 
+                    health.StopBPMChange();
+
                     oxygenUseStart.Invoke();
                 }
             }

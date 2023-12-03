@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
 {
     public static PlayerHealth Instance;
 
+    [SerializeField] float bpmIncreasePerSecondInDark = 1f;
+
     [Header("Heartbeat")]
     public float minBPM;
     public float maxBPM, dangerBPM;    
@@ -33,7 +35,10 @@ public class PlayerHealth : MonoBehaviour
 
         while (true)
         {
-            //currentBPM += 2 * Time.deltaTime;
+            if (!Flashlight.Instance.open)
+            {
+                currentBPM += bpmIncreasePerSecondInDark * Time.deltaTime;
+            }
 
             currentBPM = Mathf.Clamp(currentBPM, minBPM, maxBPM);
 
@@ -71,12 +76,18 @@ public class PlayerHealth : MonoBehaviour
 
     public void SetBPM(float bpm, float increasePerSecond)
     {
+        StopBPMChange();
+
+        bpmRoutine = StartCoroutine(NewBPM(bpm, increasePerSecond));
+    }
+
+    public void StopBPMChange()
+    {
         if (bpmRoutine != null)
         {
             StopCoroutine(bpmRoutine);
+            bpmRoutine = null;
         }
-
-        bpmRoutine = StartCoroutine(NewBPM(bpm, increasePerSecond));
     }
 
     IEnumerator NewBPM(float newBPM, float increasePerSecond)

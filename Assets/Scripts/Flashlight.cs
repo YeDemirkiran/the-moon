@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class Flashlight : MonoBehaviour
 {
+    public static Flashlight Instance;
+
     new Light light;
 
-    [SerializeField] bool open = true;
+    public bool open = true;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
