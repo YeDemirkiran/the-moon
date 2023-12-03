@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
         
     }
 
-    public static void CreateFollowing3DAudio(Transform caller, AudioClip clipToPlay, bool destroyWhenFinished = true, AudioMixerGroup group = null)
+    public static AudioSource CreateFollowing3DAudio(Transform caller, AudioClip clipToPlay, bool destroyWhenFinished = true, AudioMixerGroup group = null)
     {
         GameObject soundObject = new GameObject("AudioObject");
         soundObject.transform.position = caller.position;
@@ -28,6 +28,8 @@ public class SoundManager : MonoBehaviour
         {
             parentFollower.StartCoroutine(DestroyOnClipEnd(audioSource));
         }
+
+        return audioSource;
     }
 
     public static Coroutine FadeAudio(MonoBehaviour caller, AudioSource audioSource, float duration)

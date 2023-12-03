@@ -59,10 +59,13 @@ public class Bug : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
+        animator.SetFloat("speed", 3f);
         animator.SetTrigger("jumpscare");
 
         yield return null;
-        SoundManager.CreateFollowing3DAudio(transform, jumpscareClip, true, audioSource.outputAudioMixerGroup);
+        AudioSource source  =SoundManager.CreateFollowing3DAudio(transform, jumpscareClip, true, audioSource.outputAudioMixerGroup);
+        source.volume = audioSource.volume;
+
         player.audioSource.PlayOneShot(player.scaredClip, 2f);
 
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
