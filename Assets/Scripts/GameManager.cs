@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
 
         state = GameState.Intro;
         OnIntro();
-        eventsAtPause.Invoke();
 
         previousState = GameState.Paused;
     }
