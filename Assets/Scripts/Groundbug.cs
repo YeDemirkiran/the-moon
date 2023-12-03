@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class Groundbug : MonoBehaviour
@@ -8,7 +7,7 @@ public class Groundbug : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip jumpscareClip;
 
-    bool canJump = false, jumped = false, canDestroy = false;
+    bool canJump = false, jumped = false;
 
     PlayerController player;
 
@@ -52,16 +51,13 @@ public class Groundbug : MonoBehaviour
     {
         yield return new WaitForSeconds(0.25f);
 
-        
-
         animator.SetTrigger("jumpscare");
 
+        yield return null;
         SoundManager.CreateFollowing3DAudio(transform, jumpscareClip, true, audioSource.outputAudioMixerGroup);
+        player.audioSource.PlayOneShot(player.scaredClip, 2f);
 
-        if (!player.audioSource.isPlaying)
-        {
-            player.audioSource.PlayOneShot(player.scaredClip, 2f);
-        }
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
 
         player.fpsController.canRotate = false;
         float preYaw = player.fpsController.yaw;
