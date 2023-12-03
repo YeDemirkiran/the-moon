@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class Groundbug : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip jumpscareClip;
 
-    bool canJump = false, jumped = false;
+    bool canJump = false, jumped = false, canDestroy = false;
 
     PlayerController player;
 
@@ -17,7 +18,7 @@ public class Groundbug : MonoBehaviour
     }
 
     // Update is called once per frame
-    public async void Update()
+    public void Update()
     {
         if (!canJump)
         {
@@ -30,48 +31,53 @@ public class Groundbug : MonoBehaviour
         {
             if (!jumped)
             {
+                Debug.Log("Jumped:");
+                Debug.Log(jumped);
+
                 if (!player.rotationStarted)
                 {
                     player.RotateTowards(transform.position, 0.5f);
                 }
                 else if (player.rotationComplete)
                 {
-                    await Task.Delay(250);
-
                     jumped = true;
-                    animator.SetTrigger("jumpscare");
 
-                    if (!audioSource.isPlaying)
-                    {
-                        audioSource.PlayOneShot(jumpscareClip);
-                    }
-
-                    if (!player.audioSource.isPlaying)
-                    {
-                        player.audioSource.PlayOneShot(player.scaredClip, 2f);
-                    }
-
-                    player.fpsController.canRotate = false;
-                    float preYaw = player.fpsController.yaw;
-
-                    for (float timer = 0f; timer < 1f; timer += Time.deltaTime)
-                    { 
-                        player.fpsController.yaw += 1000f * Time.deltaTime;
-                        await Task.Yield();
-                    }
-
-                    player.fpsController.yaw = preYaw;
-                    player.fpsController.canRotate = true;
-                }
-            }
-            else
-            {
-                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
-                {
-                    Debug.Log("Jumpscare Done");
-                    Destroy(gameObject);
+                    StartCoroutine(Jumpscare());
                 }
             }
         }
+    }
+
+    IEnumerator Jumpscare()
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        
+
+        animator.SetTrigger("jumpscare");
+
+        SoundManager.CreateFollowing3DAudio(transform, jumpscareClip, true, audioSource.outputAudioMixerGroup);
+
+        if (!player.audioSource.isPlaying)
+        {
+            player.audioSource.PlayOneShot(player.scaredClip, 2f);
+        }
+
+        player.fpsController.canRotate = false;
+        float preYaw = player.fpsController.yaw;
+
+        for (float timer = 0f; timer < 1f; timer += Time.deltaTime)
+        {
+            player.fpsController.yaw += 1000f * Time.deltaTime;
+            yield return null;
+        }
+
+        player.fpsController.yaw = preYaw;
+        player.fpsController.canRotate = true;
+
+        canDestroy = true;
+
+        Debug.Log("Jumpscare Done");
+        Destroy(gameObject);
     }
 }

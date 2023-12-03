@@ -4,7 +4,7 @@ public enum Axis { x, y, z, All}
 
 public class ParentFollower : MonoBehaviour
 {
-    [SerializeField] Transform parent;
+    public Transform parent;
     [SerializeField] Axis axis;
     [SerializeField] Vector3 offset;
     public float rotationSpeed;
