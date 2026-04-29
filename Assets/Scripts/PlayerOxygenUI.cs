@@ -13,9 +13,20 @@ public class PlayerOxygenUI : MonoBehaviour
     [SerializeField] float overlayAppearDuration = 1f;
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
+        while (PlayerOxygen.Instance == null) { yield return null; Debug.Log("lololo"); }
+
         oxygen = PlayerOxygen.Instance;
+
+        if (oxygen == null)
+        {
+            Debug.Log("ananý sikeyim");
+        }
+        else
+        {
+            Debug.Log("Babaný sikeyim");
+        }
 
         oxygen.oxygenUseStart += () => Fade(1f, overlayAppearDuration);
         oxygen.oxygenUseEnd += () => Fade(0f, overlayAppearDuration);
